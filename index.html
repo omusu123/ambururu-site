@@ -7,6 +7,8 @@
   <title>Ambururu Waterfalls</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -24,24 +26,43 @@
       justify-content: center;
       color: white;
       text-shadow: 2px 2px 8px #000;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
     }
 
     header h1 {
       font-size: 3rem;
+      z-index: 1;
     }
 
     nav {
-      background-color: #004d40;
+      background-color: rgba(0, 77, 64, 0.9);
       color: white;
       padding: 10px 20px;
       position: sticky;
       top: 0;
       z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 15px;
     }
 
     nav a {
       color: white;
-      margin: 0 15px;
       text-decoration: none;
       font-weight: 600;
     }
@@ -73,6 +94,7 @@
     .gallery-item img {
       width: 100%;
       height: auto;
+      cursor: pointer;
     }
 
     .desc {
@@ -81,25 +103,66 @@
       font-size: 0.9rem;
     }
 
+    iframe {
+      border: none;
+      border-radius: 8px;
+    }
+
+    .map {
+      width: 100%;
+      height: 400px;
+    }
+
+    .floating-contact {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: white;
+      padding: 15px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      font-size: 20px;
+      z-index: 999;
+    }
+
+    .testimonials {
+      font-style: italic;
+      background-color: #f1f8f6;
+      padding: 20px;
+      border-left: 4px solid #004d40;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+
     footer {
       background-color: #004d40;
       color: white;
       text-align: center;
       padding: 20px;
     }
+
+    footer a {
+      color: #80deea;
+      text-decoration: none;
+      margin: 0 10px;
+    }
   </style>
 </head>
 
 <body>
   <nav>
-    <a href="#gallery">Gallery</a>
-    <a href="#accommodations">Accommodations</a>
-    <a href="#contact">Contact</a>
+    <div><strong>Ambururu</strong></div>
+    <div class="nav-links">
+      <a href="#gallery">Gallery</a>
+      <a href="#accommodations">Accommodations</a>
+      <a href="#map">Map</a>
+      <a href="#contact">Contact</a>
+    </div>
   </nav>
 
   <header>
-    <h1>Ambururu Waterfalls</h1>
-    <p>Discover the Hidden Gem of Western Kenya</p>
+    <h1>Welcome to Ambururu Waterfalls</h1>
   </header>
 
   <nav>
@@ -147,23 +210,21 @@
   
 
 
-  <section id="gallery" class="gallery">
+  <section id="gallery" data-aos="fade-up">
     <h2>📸 Gallery</h2>
-  
     <div class="gallery-container">
       <div class="gallery-item">
-        <img src="images/ambururu1.jpg" alt="Ambururu Waterfall View 1" />
+        <img src="images/ambururu1.jpg" alt="Ambururu Waterfall View 1" loading="lazy" />
         <div class="desc">Ambururu Waterfall View 1</div>
       </div>
       <div class="gallery-item">
-        <img src="images/ambururu2.jpg" alt="Ambururu Waterfall View 2" />
+        <img src="images/ambururu2.jpg" alt="Ambururu Waterfall View 2" loading="lazy" />
         <div class="desc">Ambururu Waterfall View 2</div>
       </div>
       <div class="gallery-item">
-        <img src="images/ambururu3.jpg" alt="Ambururu Waterfall View 3" />
+        <img src="images/ambururu3.jpg" alt="Ambururu Waterfall View 3" loading="lazy" />
         <div class="desc">Ambururu Waterfall View 3</div>
       </div>
-      <!-- Add more images as needed -->
     </div>
   </section>
   
@@ -184,33 +245,14 @@
 
 
 
-<section id="accommodations">
-  <h2>Accommodations Near Ambururu Waterfalls</h2>
-
-  <div class="accommodation">
-    <h3>Panari Resort, Nyahururu</h3>
-    <p>A luxurious resort offering comfortable rooms, a spa, and fine dining.</p>
-    <p><strong>Distance:</strong> Approximately 25 km from Ambururu Waterfalls.</p>
-    <p><strong>Amenities:</strong> Free Wi-Fi, swimming pool, fitness center.</p>
-    <p><a href="https://www.booking.com/lodging/city/ke/nyahururu.html" target="_blank">Book Now</a></p>
-  </div>
-
-  <div class="accommodation">
-    <h3>Lulu Stays 2 Bedroom, Nyahururu</h3>
-    <p>A cozy two-bedroom apartment ideal for families or small groups.</p>
-    <p><strong>Distance:</strong> Approximately 27 km from Ambururu Waterfalls.</p>
-    <p><strong>Amenities:</strong> Fully equipped kitchen, free parking, Wi-Fi.</p>
-    <p><a href="https://www.booking.com/lodging/city/ke/nyahururu.html" target="_blank">Book Now</a></p>
-  </div>
-
-  <div class="accommodation">
-    <h3>Thee Escape, Nyahururu</h3>
-    <p>A serene getaway spot offering a peaceful environment.</p>
-    <p><strong>Distance:</strong> Approximately 30 km from Ambururu Waterfalls.</p>
-    <p><strong>Amenities:</strong> Garden, terrace, free Wi-Fi.</p>
-    <p><a href="https://www.booking.com/lodging/city/ke/nyahururu.html" target="_blank">Book Now</a></p>
-  </div>
-</section>
+  <section id="accommodations" data-aos="fade-right">
+    <h2>🏡 Accommodations</h2>
+    <p>There is accommodation at <strong>Ambururu Silent Home, Musanda</strong>.</p>
+    <p>📞 For booking, call: <a href="tel:+254720215511">+254 720 215 511</a></p>
+    <div class="testimonials">
+      "Amazing stay near the falls! Peaceful, clean and so close to nature."
+    </div>
+  </section>
 
 
 
@@ -228,23 +270,14 @@
 </section>
 
 
-<section id="events">
-  <h2>Upcoming Events</h2>
-  <article>
-    <h3>Nature Walk - June 2025</h3>
-    <p>Join us for a guided nature walk exploring the flora and fauna around Ambururu Waterfalls.</p>
-  </article>
-  <article>
-    <h3>Photography Workshop - July 2025</h3>
-    <p>Enhance your photography skills with our expert-led workshop amidst the scenic beauty of the waterfalls.</p>
-  </article>
-</section>
 
 
-<section id="contact">
-  <h2>Contact Us</h2>
-  <p>Have questions or want to plan a visit? Reach out to us below:</p>
-  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScBzg3o9yhS7PMXAQM9tyrC8g520FzMBMdZzqF6rkttQAcRng/viewform?embedded=true" width="640" height="856" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+<section id="map" data-aos="fade-left">
+  <h2>📍 Location</h2>
+  <div class="map">
+    <iframe src="https://www.google.com/maps?q=-0.1821,34.5693&z=15&output=embed" width="100%" height="400"></iframe>
+  </div>
+  <p><a href="https://www.google.com/maps?q=-0.1821,34.5693" target="_blank">🧭 Get Directions</a></p>
 </section>
 
 
@@ -260,9 +293,29 @@
 
 
 
+<section id="contact" data-aos="fade-up">
+  <h2>📬 Contact</h2>
+  <p>You can reach us through the form below:</p>
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScBzg3o9yhS7PMXAQM9tyrC8g520FzMBMdZzqF6rkttQAcRng/viewform?embedded=true" width="640" height="856" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+</section>
+
+<a class="floating-contact" href="tel:+254720215511" title="Call now">
+  <i class="fas fa-phone"></i>
+</a>
+
 <footer>
   <p>&copy; 2025 Ambururu Waterfalls. All rights reserved.</p>
+  <p>
+    <a href="#">Instagram</a> |
+    <a href="#">Facebook</a> |
+    <a href="#">YouTube</a>
+  </p>
 </footer>
 
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
 </body>
+
 </html>
