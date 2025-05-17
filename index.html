@@ -67,6 +67,39 @@
       font-weight: 600;
     }
 
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .bar {
+      height: 3px;
+      width: 25px;
+      background-color: white;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: rgba(0, 77, 64, 0.95);
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        text-align: center;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
     section {
       padding: 60px 20px;
       max-width: 1000px;
@@ -153,7 +186,12 @@
 <body>
   <nav>
     <div><strong>Ambururu</strong></div>
-    <div class="nav-links">
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="nav-links" id="navLinks">
       <a href="#gallery">Gallery</a>
       <a href="#accommodations">Accommodations</a>
       <a href="#map">Map</a>
@@ -272,15 +310,6 @@
 
 
 
-<section id="map" data-aos="fade-left">
-  <h2>📍 Location</h2>
-  <div class="map">
-    <iframe src="https://www.google.com/maps?q=-0.1821,34.5693&z=15&output=embed" width="100%" height="400"></iframe>
-  </div>
-  <p><a href="https://www.google.com/maps?q=-0.1821,34.5693" target="_blank">🧭 Get Directions</a></p>
-</section>
-
-
 <section id="faq">
   <h2>Frequently Asked Questions</h2>
   <h3>What are the opening hours?</h3>
@@ -315,6 +344,9 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   AOS.init();
+  function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("active");
+  }
 </script>
 </body>
 
