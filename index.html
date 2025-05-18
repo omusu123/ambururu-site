@@ -5,21 +5,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ambururu Waterfalls</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
+    /* Root variables for theming */
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #333;
+      --header-bg: url('images/ambururu2.jpg');
+      --nav-bg: rgba(0, 77, 64, 0.9);
+      --footer-bg: #004d40;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      --bg-color: #121212;
+      --text-color: #e0e0e0;
+      --header-bg: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/ambururu2.jpg');
+      --nav-bg: rgba(0, 0, 0, 0.9);
+      --footer-bg: #000;
+    }
+
+    /* Base styles */
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to right, #e0f7fa, #ffffff);
-      color: #333;
+      background: var(--bg-color);
+      color: var(--text-color);
       scroll-behavior: smooth;
     }
 
     header {
-      background: url('images/ambururu2.jpg') center/cover no-repeat;
+      background: var(--header-bg) center/cover no-repeat;
       height: 80vh;
       display: flex;
       align-items: center;
@@ -45,7 +64,7 @@
     }
 
     nav {
-      background-color: rgba(0, 77, 64, 0.9);
+      background: var(--nav-bg);
       color: white;
       padding: 10px 20px;
       position: sticky;
@@ -65,6 +84,11 @@
       color: white;
       text-decoration: none;
       font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #80deea;
     }
 
     .menu-toggle {
@@ -81,6 +105,15 @@
       transition: 0.4s;
     }
 
+    #dark-mode-toggle {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Responsive navigation */
     @media (max-width: 768px) {
       .nav-links {
         display: none;
@@ -108,6 +141,7 @@
       margin: auto;
     }
 
+    /* Gallery styles */
     .gallery-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -122,7 +156,7 @@
     }
 
     .gallery-item:hover {
-      transform: scale(1.03);
+      transform: scale(1.05);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
@@ -138,6 +172,7 @@
       font-size: 0.9rem;
     }
 
+    /* Embedded content */
     iframe {
       border: none;
       border-radius: 8px;
@@ -148,6 +183,7 @@
       height: 400px;
     }
 
+    /* Floating contact button */
     .floating-contact {
       position: fixed;
       bottom: 20px;
@@ -161,17 +197,74 @@
       z-index: 999;
     }
 
-    .testimonials {
-      font-style: italic;
-      background-color: #f1f8f6;
+    /* Preloader styles */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Testimonials slider */
+    .slider {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .slide {
+      display: none;
       padding: 20px;
+      background: #f1f8f6;
       border-left: 4px solid #004d40;
-      margin-top: 20px;
       border-radius: 8px;
     }
 
+    .slide.active {
+      display: block;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    /* Footer styles */
     footer {
-      background-color: #004d40;
+      background: var(--footer-bg);
       color: white;
       text-align: center;
       padding: 20px;
@@ -182,17 +275,30 @@
       text-decoration: none;
       margin: 0 10px;
     }
+
+    /* Accessibility enhancements */
+    nav a:focus, button:focus {
+      outline: 2px solid #80deea;
+      outline-offset: 2px;
+    }
   </style>
 </head>
 
 <body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navigation -->
   <nav>
     <div><strong>Ambururu</strong></div>
-    <div class="menu-toggle" onclick="toggleMenu()">
+    <div class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation menu">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </div>
+    <button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
     <div class="nav-links" id="navLinks">
       <a href="#location">Location</a>
       <a href="#attractions">Attractions</a>
@@ -203,10 +309,12 @@
     </div>
   </nav>
 
+  <!-- Header -->
   <header>
     <h1>Welcome to Ambururu Waterfalls</h1>
   </header>
 
+  <!-- Location Section -->
   <section id="location">
     <h2>📍 Location</h2>
     <p><strong>Address:</strong> Ruwe Sub-location, Sidindi Ward, Ugunja Sub-county, Siaya County, Kenya</p>
@@ -224,6 +332,7 @@
     </div>
   </section>
 
+  <!-- Attractions Section -->
   <section id="attractions">
     <h2>🏞️ Attractions & Activities</h2>
     <ul>
@@ -234,11 +343,13 @@
     </ul>
   </section>
 
+  <!-- About Section -->
   <section id="about">
     <h2>About Ambururu Waterfalls</h2>
     <p>Ambururu Waterfalls, nestled in the heart of Siaya County, Kenya, is a breathtaking natural wonder known for its cascading waters and serene environment. A popular destination for both locals and tourists, it offers a perfect escape into nature.</p>
   </section>
 
+  <!-- Gallery Section -->
   <section id="gallery" data-aos="fade-up">
     <h2>📸 Gallery</h2>
     <div class="gallery-container">
@@ -257,6 +368,7 @@
     </div>
   </section>
 
+  <!-- Contact Section -->
   <section id="contact">
     <h2>📞 Contact & Social Media</h2>
     <p><strong>Phone:</strong> +254 720 215 511</p>
@@ -264,11 +376,13 @@
     <p><strong>Instagram:</strong> <a href="https://www.instagram.com/ambururu_waterfall_resort/" target="_blank">@ambururu_waterfall_resort</a></p>
   </section>
 
+  <!-- Video Section -->
   <section id="video">
     <h2>🎥 Explore More</h2>
     <iframe src="https://www.youtube.com/embed/Z0766a3Lr2Y" frameborder="0" allowfullscreen></iframe>
   </section>
 
+  <!-- Accommodations Section -->
   <section id="accommodations" data-aos="fade-right">
     <h2>🏡 Accommodations</h2>
     <p>There is accommodation at <strong>Ambururu Silent Home, Musanda</strong>.</p>
@@ -278,18 +392,24 @@
     </div>
   </section>
 
+  <!-- Testimonials Section with Slider -->
   <section id="testimonials">
     <h2>What Our Visitors Say</h2>
-    <blockquote>
-      <p>"An unforgettable experience! The beauty of Ambururu Waterfalls is unmatched."</p>
-      <footer>- Jane Doe</footer>
-    </blockquote>
-    <blockquote>
-      <p>"A serene and peaceful place. Perfect for a weekend getaway."</p>
-      <footer>- John Smith</footer>
-    </blockquote>
+    <div class="slider">
+      <div class="slide active">
+        <p>"An unforgettable experience! The beauty of Ambururu Waterfalls is unmatched."</p>
+        <footer>- Jane Doe</footer>
+      </div>
+      <div class="slide">
+        <p>"A serene and peaceful place. Perfect for a weekend getaway."</p>
+        <footer>- John Smith</footer>
+      </div>
+    </div>
+    <button class="prev">❮</button>
+    <button class="next">❯</button>
   </section>
 
+  <!-- FAQ Section -->
   <section id="faq">
     <h2>Frequently Asked Questions</h2>
     <h3>What are the opening hours?</h3>
@@ -300,18 +420,21 @@
     <p>Yes, guided tours can be arranged upon request. Please contact us in advance @+254 720 215 511.</p>
   </section>
 
+  <!-- Contact Form Section -->
   <section id="contact" data-aos="fade-up">
     <h2>📬 Contact</h2>
     <p>You can reach us through the form below:</p>
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScBzg3o9yhS7PMXAQM9tyrC8g520FzMBMdZzqF6rkttQAcRng/viewform?embedded=true" width="640" height="856" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
   </section>
 
+  <!-- Floating Contact Button -->
   <a class="floating-contact" href="tel:+254720215511" title="Call now">
     <i class="fas fa-phone"></i>
   </a>
 
+  <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Ambururu Waterfalls. All rights reserved.</p>
+    <p>© 2025 Ambururu Waterfalls. All rights reserved.</p>
     <p>
       <a href="#">Instagram</a> |
       <a href="#">Facebook</a> |
@@ -319,12 +442,65 @@
     </p>
   </footer>
 
+  <!-- External Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // Initialize AOS
     AOS.init();
+
+    // Menu Toggle Function
     function toggleMenu() {
       document.getElementById("navLinks").classList.toggle("active");
     }
+
+    // Dark Mode Toggle
+    const toggleButton = document.getElementById('dark-mode-toggle');
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    });
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark-mode');
+    }
+
+    // Preloader
+    window.addEventListener('load', () => {
+      document.getElementById('preloader').style.display = 'none';
+    });
+
+    // Testimonials Slider
+    const slides = document.querySelectorAll('.slide');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
+
+    prevButton.addEventListener('click', () => {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    });
+
+    nextButton.addEventListener('click', () => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    });
+
+    // Auto-slide every 5 seconds
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }, 5000);
   </script>
 </body>
 
