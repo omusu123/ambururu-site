@@ -1,23 +1,33 @@
+
 /* Root variables for theming */
 :root {
-  --bg-color: #ffffff;
-  --text-color: #333;
-  --header-bg: url('images/ambururu2.jpg');
-  --nav-bg: rgba(0, 77, 64, 0.9);
-  --footer-bg: #004d40;
-  --border-color: #ccc;
-  --background-light: #f9f9f9;
-  --text-muted: #555;
-  --shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  --bg-color: #F5F6F5; /* Soft off-white */
+  --text-color: #2E2E2E; /* Soft dark gray */
+  --text-muted: #616161; /* Lighter gray for secondary text */
+  --primary-color: #1B5E20; /* Forest green */
+  --secondary-color: #4FC3F7; /* Aqua blue */
+  --header-bg: url('images/ambururu2.jpg'); /* Restored image */
+  --nav-bg: rgba(27, 94, 32, 0.95); /* Semi-transparent forest green */
+  --footer-bg: #1B5E20; /* Forest green */
+  --border-color: #D1D4D1; /* Light gray for borders */
+  --background-light: #F5F6F5; /* Same as bg-color for sections */
+  --shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Softer shadow */
+  --error-color: #D32F2F; /* Red for errors */
+  --success-color: #388E3C; /* Green for success */
 }
 
 /* Dark mode styles */
 body.dark-mode {
-  --bg-color: #121212;
-  --text-color: #e0e0e0;
-  --header-bg: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/ambururu2.jpg');
-  --nav-bg: rgba(0, 0, 0, 0.9);
-  --footer-bg: #000;
+  --bg-color: #1A1A1A; /* Deep dark gray */
+  --text-color: #E0E0E0; /* Light gray for text */
+  --text-muted: #A0A0A0; /* Lighter gray for secondary text */
+  --primary-color: #4CAF50; /* Lighter green for dark mode */
+  --secondary-color: #81D4FA; /* Lighter aqua blue */
+  --header-bg: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/ambururu2.jpg'); /* Image with darker overlay */
+  --nav-bg: rgba(27, 94, 32, 0.95); /* Keep forest green for consistency */
+  --footer-bg: #1A1A1A; /* Match dark background */
+  --border-color: #3A3A3A; /* Darker gray for borders */
+  --background-light: #242424; /* Darker section background */
 }
 
 /* Base styles */
@@ -36,7 +46,7 @@ header {
   align-items: center;
   justify-content: center;
   color: white;
-  text-shadow: 2px 2px 8px #000;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
   position: relative;
 }
 
@@ -47,7 +57,7 @@ header::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.3); /* Lighter overlay for light mode */
 }
 
 header h1 {
@@ -80,7 +90,7 @@ nav a {
 }
 
 nav a:hover {
-  color: #80deea;
+  color: var(--secondary-color); /* Aqua blue on hover */
 }
 
 .menu-toggle {
@@ -93,7 +103,7 @@ nav a:hover {
   height: 3px;
   width: 25px;
   background-color: white;
-  margin: 4px 0;
+  margin: 4px;
   transition: 0.4s;
 }
 
@@ -103,6 +113,11 @@ nav a:hover {
   color: white;
   font-size: 20px;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#dark-mode-toggle:hover {
+  color: var(--secondary-color);
 }
 
 /* Responsive navigation */
@@ -110,7 +125,7 @@ nav a:hover {
   .nav-links {
     display: none;
     flex-direction: column;
-    background: rgba(0, 77, 64, 0.95);
+    background: var(--nav-bg);
     position: absolute;
     top: 60px;
     right: 0;
@@ -131,6 +146,14 @@ section {
   padding: 60px 20px;
   max-width: 1000px;
   margin: auto;
+  background: var(--background-light);
+  border-radius: 8px;
+}
+
+/* Headings */
+h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
 }
 
 /* Gallery styles */
@@ -162,6 +185,47 @@ section {
   padding: 10px;
   text-align: center;
   font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Visitors styles */
+.visitor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.visitor-desc {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  text-align: center;
+  max-width: 700px;
+}
+
+.visitor-item {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 500px;
+}
+
+.visitor-item:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow);
+}
+
+.visitor-item img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .visitor-item {
+    max-width: 100%;
+  }
 }
 
 /* Embedded content */
@@ -180,13 +244,18 @@ iframe {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #25d366;
+  background: var(--primary-color);
   color: white;
   padding: 15px;
   border-radius: 50%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   font-size: 20px;
   z-index: 999;
+  transition: background 0.3s ease;
+}
+
+.floating-contact:hover {
+  background: var(--secondary-color);
 }
 
 /* Preloader styles */
@@ -196,7 +265,7 @@ iframe {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #fff;
+  background: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -204,8 +273,8 @@ iframe {
 }
 
 .spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--secondary-color);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -227,8 +296,8 @@ iframe {
 .slide {
   display: none;
   padding: 20px;
-  background: #f1f8f6;
-  border-left: 4px solid #004d40;
+  background: var(--bg-color);
+  border-left: 4px solid var(--primary-color);
   border-radius: 8px;
 }
 
@@ -244,6 +313,11 @@ iframe {
   border: none;
   font-size: 24px;
   cursor: pointer;
+  color: var(--primary-color);
+}
+
+.prev:hover, .next:hover {
+  color: var(--secondary-color);
 }
 
 .prev {
@@ -263,34 +337,39 @@ footer {
 }
 
 footer a {
-  color: #80deea;
+  color: var(--secondary-color);
   text-decoration: none;
   margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: white;
 }
 
 /* Accessibility enhancements */
 nav a:focus, button:focus {
-  outline: 2px solid #80deea;
+  outline: 2px solid var(--secondary-color);
   outline-offset: 2px;
 }
 
 /* Additional styles for accommodations */
 #accommodations {
   padding: 40px 20px;
-  background-color: var(--background-light);
+  background: var(--background-light);
 }
 
 .accommodation {
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   padding: 15px;
   margin-bottom: 20px;
   border-radius: 5px;
-  background-color: #fff;
+  background: var(--bg-color);
 }
 
 .accommodation h3 {
   margin-top: 0;
-  color: var(--text-color);
+  color: var(--primary-color);
 }
 
 .accommodation p {
@@ -299,18 +378,18 @@ nav a:focus, button:focus {
 }
 
 .accommodation a {
-  color: #80deea;
+  color: var(--secondary-color);
   text-decoration: none;
-  transition: text-decoration 0.2s ease;
+  transition: color 0.3s ease;
 }
 
 .accommodation a:hover,
 .accommodation a:focus {
-  text-decoration: underline;
+  color: var(--primary-color);
 }
 
 .accommodation a:focus {
-  outline: 2px solid #80deea;
+  outline: 2px solid var(--secondary-color);
   outline-offset: 2px;
 }
 
@@ -331,5 +410,284 @@ nav a:focus, button:focus {
   .accommodation {
     padding: 10px;
     margin-bottom: 15px;
+  }
+}
+
+/* Lightbox custom styles */
+.lb-image {
+  border-radius: 8px;
+}
+
+.lb-caption {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+.lb-nav a.lb-prev,
+.lb-nav a.lb-next {
+  background: rgba(27, 94, 32, 0.7);
+}
+
+/* Accordion styles */
+.accordion {
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.accordion-header {
+  background: var(--background-light);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  padding: 15px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+  background: var(--secondary-color);
+  color: white;
+}
+
+.accordion-header::after {
+  content: '\25BC';
+  float: right;
+  font-size: 12px;
+}
+
+.accordion-header.active::after {
+  content: '\25B2';
+}
+
+.accordion-content {
+  display: none;
+  padding: 15px;
+  background: var(--bg-color);
+}
+
+.accordion-content.active {
+  display: block;
+}
+
+body.dark-mode .accordion-header {
+  background: var(--background-light);
+}
+
+body.dark-mode .accordion-content {
+  background: var(--bg-color);
+}
+
+/* Back-to-top button */
+.back-to-top {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: var(--primary-color);
+  color: white;
+  padding: 15px;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  z-index: 999;
+  display: none;
+  text-decoration: none;
+}
+
+.back-to-top:hover {
+  background: var(--secondary-color);
+}
+
+.back-to-top.visible {
+  display: block;
+}
+
+/* Contact modal */
+.contact-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--bg-color);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 90%;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.modal-close:hover {
+  color: var(--secondary-color);
+}
+
+/* Enhanced slider */
+.slide {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+/* Slider dots */
+.slider-dots {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.dot {
+  height: 10px;
+  width: 10px;
+  background-color: var(--border-color);
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: var(--primary-color);
+}
+
+/* Weather widget */
+#weather-widget {
+  margin-top: 20px;
+  padding: 15px;
+  background: var(--background-light);
+  border-radius: 8px;
+  text-align: center;
+}
+
+#weather-info {
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+#weather-info img {
+  vertical-align: middle;
+}
+
+/* Enhanced weather widget styles */
+.weather-card {
+  background: var(--bg-color);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  display: inline-block;
+  max-width: 300px;
+  width: 100%;
+}
+
+.weather-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.weather-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.weather-temp {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.weather-desc {
+  font-size: 1rem;
+  text-transform: capitalize;
+  color: var(--text-muted);
+}
+
+.weather-details {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.weather-details span {
+  display: block;
+  margin: 5px 0;
+}
+
+.weather-loading, .weather-error {
+  font-size: 1rem;
+  color: var(--error-color);
+}
+
+@media (max-width: 600px) {
+  .weather-card {
+    max-width: 100%;
+  }
+}
+
+/* Social media feed */
+.social-feed {
+  margin-top: 20px;
+}
+
+.snapwidget-widget {
+  max-width: 100%;
+}
+
+/* School Visits section styles */
+#school-visits {
+  padding: 60px 20px;
+  background: var(--background-light);
+}
+
+.school-visits-form {
+  background: var(--bg-color);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+.school-visits-form iframe {
+  width: 100%;
+  min-height: 900px;
+}
+
+@media (max-width: 768px) {
+  .school-visits-form {
+    padding: 15px;
+  }
+
+  .school-visits-form iframe {
+    min-height: 800px;
   }
 }
